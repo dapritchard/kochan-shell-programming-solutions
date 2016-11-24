@@ -1,0 +1,71 @@
+
+exer01: when one or more files doesn't exist then a copy is performed with the
+    remaining files that do exist, assuming that there are any.  One concern is
+    that if some number out of a list of files do not exist, then the user may
+    not wish to copy the remaining.  The program has been edited to check if any
+    files do not exist and ask the user if they still want to perform the copy.
+
+    Execute exer03.sh with SOURCE DEST or SOURCE... DIRECTORY arguments.  For
+    example:
+
+        mkdir testdir
+
+	# Neither file exists
+	./exer01.sh a b testdir
+
+	# Now try with one file
+	touch a
+	./exer01.sh a b testdir
+
+	rm a
+	rm -r testdir
+
+
+exer02: read an answer to the question in exer02.txt
+
+
+exer03: execute exer03.sh with similar tests as for exercise 1
+
+
+exer04: execute exer04.sh without any arguments and perform a copy
+
+
+exer05: execute exer05.sh with the -n option to overwrite a file without a
+    prompt.  For example:
+
+        echo 1234 > a
+        touch b
+	ls -l a b            # Different file sizes
+
+	./exer05.sh -n a b
+	ls -l a b            # Now the same file size
+
+
+exer06: execute exer06.sh with similar tests as for exercises 1-5
+
+
+exer07: execute test07.sh to add, look up, and remove entries to the phonebook
+    via exer07.sh
+
+
+exer08: execute exer08.sh and try a few add, look up, and remove operations.
+    For example:
+
+        ./exer08.sh
+	2               # add a name
+	chris
+	212-4957
+	2               # add a name
+	christy
+	182-2484
+	1               # look up names
+	chris
+	0               # exit
+
+	rm phonebook
+
+
+exer09: see exer09.txt for answers to these questions
+
+
+exer10: see lu for modifications, and execute test10.sh to test

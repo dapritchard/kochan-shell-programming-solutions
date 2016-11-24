@@ -1,0 +1,9 @@
+
+exer01: read answers to the questions as a text file
+
+exer02: read answers to the questions as a text file
+
+exer03: run the program and visually compare to the number of files in the
+    output of ls
+
+exer04: run the program and visually compare to the output of who

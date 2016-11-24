@@ -1,0 +1,22 @@
+
+Write the commands to
+
+
+a. Find all logged-in users with usernames of at least four characters.
+
+       who | cut -d' ' -f1 | uniq | grep '^.\{4,\}$'
+
+
+b. Find all users on your system whose user ids are greater than 99.
+
+       cat /etc/passwd | cut -d: -f1,3 | grep ':.\{3,\}' | cut -d: -f1
+
+
+c. Find the number of users on your system whose user ids are greater than 99.
+
+       cat /etc/passwd | cut -d: -f1,3 | grep ':.\{3,\}' | wc -l
+
+
+d. List all the files in your directory in decreasing order of file size.
+
+       ls -rS | tr ' ' '\n'

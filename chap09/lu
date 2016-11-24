@@ -1,0 +1,83 @@
+#!/bin/bash
+
+name=$1
+maxlen=0
+
+#
+# Find number of matching entries
+#
+
+match_text=$(grep "$name" phonebook)
+match_text_local=$match_text
+if [ ! -n "$match_text_local" ]
+then
+    # Nothing to print
+    exit 0
+fi
+
+n_matches=$(echo "$match_text_local" | wc -l)
+n_matches_local=$n_matches
+
+#
+# Find the maximum name length
+# 
+
+# Each iteration finds the length of the name in the first line of
+# $match_text_local and compares to the maximum name length and updates the max
+# if necessary; then the first line of $match_text_local is removed
+while [ $n_matches_local -ge 1 ]
+do
+    # Obtain length of current name
+    this_line=$(echo "$match_text_local" | head -1)
+    this_len=$(echo "$this_line" | cut -f1 | wc -m)
+    this_len=$(($this_len - 1))
+
+    # Find current maximum name length
+    if [ $this_len -gt $maxlen ]
+    then
+	maxlen=$this_len
+    fi
+
+    # Maximum length we allow is 40; break if this is reached
+    if [ $maxlen -ge 40 ]
+    then
+	maxlen=40
+	break
+    fi
+
+    # Remove first entry
+    n_matches_local=$((n_matches_local - 1))
+    match_text_local=$(echo "$match_text_local" | tail -$n_matches_local)
+done
+
+#
+# Print each formatted line of matches from phone book
+#
+
+# Reset $match_text_local and $n_matches_local
+match_text_local=$match_text
+n_matches_local=$n_matches
+    
+# 
+while [ $n_matches_local -ge 1 ]
+do
+    # Obtain length of current name
+    this_line=$(echo "$match_text_local" | head -1)
+    this_name=$(echo "$this_line" | cut -f1)
+    this_number=$(echo "$this_line" | cut -f2)
+
+    # Ensure that name doesn't exceed 40 chars in length
+    this_len=$(echo "$this_name" | wc -m)
+    this_len=$((this_len - 1))
+    if [ $this_len -gt 40 ]
+    then
+	this_name="$(echo "$this_name" | cut -c1-37)..."
+    fi
+
+    # Print line padded with 0's
+    printf "%-*s    %s\n" $maxlen "$this_name" "$this_number"
+
+    # Remove first entry
+    n_matches_local=$((n_matches_local - 1))
+    match_text_local=$(echo "$match_text_local" | tail -$n_matches_local)
+done

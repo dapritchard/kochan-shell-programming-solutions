@@ -1,0 +1,21 @@
+
+What happens to the rolo program if just an Enter is given as the name for the
+add, look up, or remove options?
+
+--------------------------------------------------------------------------------
+
+
+add: the original version of add allowed a blank entry to be provided as a valid
+    name or number.  This does not seem like particularly desirable behavior,
+    and so the program was modified so that a blank entry is no longer
+    considered valid.
+
+look up: a look up, which is powered by grep, by definition matches everything
+    on a blank.  This seems like a useful feature to allow the user to very
+    conveniently print the entire phone book, and so is left as is.
+
+remove: a remove operation, which is powered by grep, by definition matches
+    everything on a blank.  This seems like a useful feature to allow the user
+    step through all of the names in the phone book and delete some or all of
+    the entries (recall that the user is prompted for individual confirmation to
+    delete entries when there are multiple matches), and so is left as is.

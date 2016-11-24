@@ -1,0 +1,19 @@
+
+exer01: execute exer01.sh to perform the commands specified in the exercise
+
+exer02: read answers to the questions as a text file
+
+exer03: copy-paste the examples from the text file into the shell to test
+
+exer04: copy-paste the examples from the text file into the shell to test and visually
+    compare to the data in the file names
+
+
+
+
+additional files: 
+
+    There is a directory testdir with files according to the names
+    given in exercise 1 which are used to test the commands given in exer01.sh.
+
+    There is a file called names which is used for the test example in exer04.sh

@@ -1,0 +1,79 @@
+
+exer01: execute exer01.sh with a variable number of arguments to test.  For
+    example:
+
+        ./exer01.sh a
+	./exer01.sh a 'b 'c d    # a little tricky
+        ./exer01.sh
+
+
+exer02: execute exer02.sh with the name of a logged-in user as the first
+    argument (remaining arguments are ignored).  For example:
+
+        ./exer02.sh dpritch
+
+
+exer03: execute exer03.sh with the -f filename option and optional -t n
+    specifying how often in seconds to check for the file.  For example:
+
+        ./exer03.sh -f myfile -t 5 &
+	# wait a few seconds
+        touch myfile
+	# wait until a message is written to stdout
+	rm myfile
+
+
+exer04: execute exer04.sh with the -f filename option and -n option and optional
+    -t n specifying how often in seconds to check for the file.  For example:
+
+        touch myfile
+        ./exer04.sh -n -f myfile -t 5 &
+	rm myfile
+
+
+exer05: execute exer05.sh with the -t n option and visually compare to the
+    output from ps and who.  For example:
+
+        ./exer05.sh -t 1
+	# Ctr-C to kill infinite loop
+
+
+exer06: execute exer06.sh with arguments pattern and filename.  For example:
+
+        ./exer06.sh baby scarlet_begonias.txt
+	./exer06.sh "had a gun" scarlet_begonias.txt        # first line
+	./exer06.sh "got no chance" scarlet_begonias.txt    # last line
+	./exer06.sh asdf scarlet_begonias.txt               # no match
+
+	# illegal arguments
+	./exer06.sh baby asdf
+	./exer06.sh baby
+	./exer06.sh
+	
+
+exer07: execute exer07.sh with option -w winsize and arguments pattern and
+    filename.  For example:
+
+        ./exer07.sh -w 2 baby scarlet_begonias.txt
+	./exer07.sh -w 7 "had a gun" scarlet_begonias.txt        # first line
+	./exer07.sh -w 0 "got no chance" scarlet_begonias.txt    # last line
+
+        # illegal arguments
+	./exer07.sh -w asdf baby scarlet_begonias.txt
+        ./exer07.sh -w 2.8 baby scarlet_begonias.txt
+	./exer07.sh -w -3 baby scarlet_begonias.txt
+
+
+exer08: execute exer08.sh with option -w winsize and arguments pattern and
+    filename....  For example:
+
+        ./exer08.sh that exer08.sh scarlet_begonias.txt       # matches for both
+	./exer08.sh getopts exer08.sh scarlet_begonias.txt    # only exer08.sh
+
+
+
+
+additional files:
+
+    There is a file called scarlet_begonias.txt which is used for testing
+    exer06.sh, exer07.sh, and exer08.sh.

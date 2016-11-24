@@ -1,0 +1,7 @@
+
+Write the commands to assign the unique lines in the file names to the shell
+variable namelist.
+
+namelist=$(cat names | sort -u)
+
+echo "$namelist"

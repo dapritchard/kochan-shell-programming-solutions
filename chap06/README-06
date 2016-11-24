@@ -1,0 +1,58 @@
+
+exer01: execute exer01.sh with a single argument to look for a name in the file
+    phonebook.  For example:
+
+         ./exer01.sh "susan g"        # Should match
+	 ./exer01.sh "Miles Davis"    # No match
+
+
+exer02: read answers to the questions as a text file
+
+
+exer03: execute exer03.sh with the name of a user that is logged in, and a
+    partial name that shouldn't match.  For example:
+
+        ./exer03.sh dpritch    # Should match if dpritch is logged in
+	./exer03.sh dpri       # Shouldn't match (unless dpri is logged in)
+
+
+exer04: execute exer04.sh with a single integer argument.  For example:
+
+        ./exer04.sh 5           # prints 10 
+	./exer04.sh -10         # prints -20
+	./exer04.sh asdf        # prints 0
+	./exer04.sh             # error
+	./exer04.sh ""          # error
+	./exer04.sh -1 -2 -3    # prints -2
+        ./exer04.sh "1 2 3"     # error
+
+
+exer05: execute exer05.sh with the name of a logged-in user.  For example:
+
+        ./exer05.sh dpritch
+	./exer05.sh asdf
+
+
+exer06: create some dummy files and then rename them through exer06.sh.  For
+    example:
+
+        touch a
+	./exer06.sh a .suf
+	ls
+	rm a.suf
+
+
+exer07: create some dummy files and then strip the suffixes from their names.
+    For example:
+
+        touch test1test
+	./exer07.sh test1test test
+	ls
+	rm test1
+
+
+
+
+additional files: 
+
+    There is a file called phonebook which is used to test exer01.sh.

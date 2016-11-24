@@ -1,0 +1,6 @@
+
+What happens if you forget to supply an argument to the lu program? What happens
+if the argument is null (as in, lu "")?
+
+In both cases grep matches everything and consequently the entire phonebook is
+written to stdout.

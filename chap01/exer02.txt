@@ -1,0 +1,47 @@
+
+What is the effect of the following command sequences?
+
+
+ls | wc -l
+
+    Prints the number of non-hidden file in the current directory to stdout
+
+rm ????
+
+    Delete any non-hidden files in the current directory that have a filename
+    with length 4
+
+who | wc -l
+
+    Prints the number of users who are currently logged in    
+
+mv progs/* /users/steve/backup
+
+    Move every file in directory progs to /users/steve/backup
+
+ls *.c | wc -l
+
+    Prints the number of files in the current directory ending in .c
+
+rm *.o
+
+    Delets any files in the current directory ending in .o
+
+who | sort
+
+    Prints the a sorted list of the users who are currently logged in with some
+    additional information included in each line
+
+cd; pwd
+
+    Changes directory to home and prints the absolute location of home
+
+cp memo1 ..
+
+    If a file named memo exists in the current directory, then make a copy of
+    this file with the same name and place into ..
+    
+plotdata 2>errors &
+
+    Attempt to run a command named plotdata in the background.  Any data writen
+    to stderr is redirected to a file with name errors.

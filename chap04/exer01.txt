@@ -1,0 +1,51 @@
+
+Which of the following are valid variable names?
+
+
+XxXxXx
+
+    valid
+
+_
+
+    valid
+
+
+12345
+
+    not valid
+
+
+HOMEDIR
+
+    valid
+
+
+file.name
+
+    not valid
+
+
+_date
+
+    valid
+
+
+file_name
+
+    valid
+
+
+x0-9
+
+    not valid
+
+
+file1
+
+    valid
+
+
+$limit
+
+    not valid

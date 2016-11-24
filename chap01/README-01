@@ -1,0 +1,10 @@
+
+exer01: execute exer01.sh to perform the commands specified in the exercise
+
+exer02: read answers to the questions as a text file
+
+
+
+
+additional files: there is a directory testdir with files according to the names
+    given in exercise 1 which are used to test the commands given in exer01

@@ -1,0 +1,9 @@
+
+Modify lu to use printf to print the name and phone number so that they line up
+in columns for names up to 40 characters in length (Hint: use cut –f and the
+fact that the fields in the phonebook are separated by tabs).
+
+--------------------------------------------------------------------------------
+
+
+See lu for modifications, and test10.sh to test

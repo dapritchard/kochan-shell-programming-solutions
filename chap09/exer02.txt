@@ -1,0 +1,15 @@
+
+What happens to mycp if one of the filenames contains a character that has a
+special meaning to the shell such as ; or |?
+
+--------------------------------------------------------------------------------
+
+
+Surprisingly enough, the program still seems to work!?!
+
+^^ With the exception of blanks, that is.  Even after escaping them with a \
+they are still split in the for loop.  The solution to this of course is to
+store the variables in an array, but we haven't learned how to do this yet.
+
+So why does the program work?  I can't really say, but perhaps the filname
+substitution is performed after the expression is parsed for special characters?

@@ -1,0 +1,20 @@
+
+Write the commands to remove all the space characters stored in the shell
+variable text.  Be sure to assign the result back to text.  First use tr to do
+it and then do the same thing with sed.
+
+
+text='a b  c    d'
+
+text=$(echo "$text" | tr -d ' ')
+
+echo "$text"
+
+
+
+
+text='a b  c    d'
+
+text=$(echo "$text" | sed 's/ *//g')
+
+echo "$text"

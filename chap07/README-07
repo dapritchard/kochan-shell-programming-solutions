@@ -1,0 +1,84 @@
+
+exer01: execute exer01.sh with a single argument to check the validity of the
+    argument as a shell variable.  For example:
+
+        ./exer01.sh myvar123           # yes
+	./exer01.sh _myvar_            # yes
+	./exer01.sh 1var               # no
+	./exer01.sh ""                 # no
+	./exer01.sh "  somespace1"     # no
+	./exer01.sh "somespace2  "     # no
+	./exer01.sh "myvar1 myvar2"    # no
+
+
+exer02: execute exer02_arith.sh, exer02_case.sh, and exer02_expr.sh and visually
+    compare the output to that from date to make sure that they are each
+    properly converting the times.
+
+    Note that using the current time isn't sufficient to test all of the edge
+    cases.  It's probably advisable to find a way to artificially manipulate the
+    program to test a range of times, e.g. 12:30am, 5:30am, 10:30am, 12:30pm,
+    5:30pm, 10:30pm.
+
+
+exer03: the file text is provided to facilitate testing with exer03.sh; however,
+    as per the directions exer03.sh overwrites the original file so a copy
+    should be made before use.  For example:
+
+        cat text
+	cp text text_copy
+	./exer03.sh '1,10d' text_copy
+	cat text_copy
+	rm text_copy
+
+	# error handling
+	./exer03.sh '1,10d' asdf
+
+
+exer04: execute exer04_if.sh and exer04_case.sh with a single argument and print
+    the return status.  For example:
+
+        # yes examples
+
+        ./exer04_if.sh y;        echo $?
+	./exer04_if.sh yes;      echo $?
+	./exer04_case.sh Yes;    echo $?
+	./exer04_case.sh YES;    echo $?
+	./exer04_case.sh Y;      echo $?
+
+	# no examples
+
+	./exer04_if.sh no;            echo $?
+	./exer04_if.sh asdf;          echo $?
+	./exer04_case.sh "yes no";    echo $?
+	./exer04_if.sh "";            echo $?
+	./exer04_case.sh "";          echo $?
+
+	# syntax error
+
+	./exer04_if.sh
+	./exer04_case.sh yes arg2 arg3
+
+
+exer05: execute exer05.sh with the name of a logged-in user and visually compare
+    to the login time from the output of who.  
+	
+    Note that using the current time isn't sufficient to test all of the edge
+    cases.  It's probably advisable to find a way to artificially manipulate the
+    program to test a range of login times.  For example, one should test for
+    (i) the case where the current minutes time is greater than the login
+    minutes time (i.e. login 8:19 and current 9:05), and (ii) the case where the
+    current hours time is greater than the login hours time (i.e. login at 10:45
+    yesterday and current 8:15 today).
+
+
+
+
+additional files:
+
+    There is a file called text which is used for testing exer03.sh.
+
+    Note that exercise 2 has multiple versions: exer02_arith.sh, exer02_case.sh,
+    and exer02_expr.sh.
+
+    Note that exercise 5 has multiple versions: exer04_if.sh and exer04_case.sh

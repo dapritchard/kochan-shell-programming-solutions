@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#
+# Add someone to the phone book
+#
+
+if [ ! -n "$1" ]
+then
+    echo 'must provide a non-null entry for name'
+    exit 0
+fi
+
+echo "$1	$2" >> phonebook
+
+sort -u -o phonebook phonebook

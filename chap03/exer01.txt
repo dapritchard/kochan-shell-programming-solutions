@@ -1,0 +1,89 @@
+
+What will be matched by the following regular expressions?
+
+
+x*
+
+    0 or more consecutive x's
+
+
+[0-9]\{3\}
+
+    A sequence of exactly 3 consecutive digits
+
+
+xx* 
+
+    1 or more consecutive x's
+
+
+[0-9]\{3,5\}
+
+    A sequence of between 3 and 5 consecutive digits
+
+
+x\{1,5\}
+
+    A sequence of between 1 and 5 consecutive x's
+
+
+[0-9]\{1,3\},[0-9]\{3\}
+
+    A sequence of between 1 and 3 consecutive digits, followed by a comma,
+    followed by exactly 3 consecutive digits
+
+
+x\{5,\}
+
+    A sequence of 5 or more x's
+
+
+^\...
+
+    The first character in the string is a period, followed by any 2 more
+    characters
+
+
+x\{10\}
+
+    A sequence of exactly 10 x's 
+
+
+[A-Za-z_][A-Za-z_0-9]*
+
+    Any alphabetic letter or underscore, followed by any number of alphabetic
+    letters or underscores or digits.  This matches a legal variable name in
+    some programming languages.
+
+
+[0-9] 
+
+    Any digit
+
+
+\([A-Za-z0-9]\{1,\}\)\1
+
+    A run of even-valued length of the same alphabetic letter or digit.
+    I.e. xxx would match xx.  Initially a run of length 1 or longer is matched
+    and stored in register 1, and then the value of that register is placed in
+    the regex.
+
+
+[0-9]*
+
+    0 or more occurances of a digit
+
+
+^Begin$
+
+    The string is exactly Begin
+
+
+[0-9][0-9][0-9]
+
+    Exactly 3 digits
+
+
+^\(.\).*\1$
+
+    The first character of the string is the same as the last

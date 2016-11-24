@@ -1,0 +1,53 @@
+
+What will be the effect of the following commands?
+
+
+who | grep 'mary'
+
+    Print any lines from the output of who with the word mary in them.  Might be
+    used to see if any when the user Mary logged in.
+
+
+who | grep '^mary'
+
+    Print any lines from the output of who starting with the string mary.
+
+
+grep '[Uu]nix' ch?/*
+
+    If no directory with a name of length 3 characters and starting with ch
+    exists, then terminate with an error message.  If any such directories
+    exist, then search each file in each such directory for either the word unix
+    or Unix and print any lines that contain that word.
+
+ls -l | sort +4n
+
+    This did not work as printed on my system, and I don't see anything about
+    using a + in either the man pages or the book.  Replacing +4n with -k5 -n
+    sorts the long output of ls by file size.
+
+
+sed '/^$/d' text > text.out
+
+    If no file with name text exists then terminate with an error message.  If
+    text exists, then delete every blank line in text and write to text.out.
+
+
+sed 's/\([Uu]nix\)/\1(TM)/g' text > text.out
+
+    If no file with name text exists then terminate with an error message.  If
+    text exists, then insert a (TM) after every instance of Unix or unix in text
+    and write to text.out.
+
+
+date | cut -c12-16
+
+     Print characters 12-16 from the output of date.  On my system this gives
+     the time.
+
+
+date | cut -c5-11,25- | sed 's/\([0-9]\{1,2\}\)/\1,/'
+
+    Take characters 5-11 and 25- end of the line, and then add a comma to the
+    largest first instance of either 1 or 2 consecutive digits of the line.  On
+    my system this prints a date, such as Oct 17, 2016.

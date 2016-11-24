@@ -1,0 +1,76 @@
+
+Suppose that your HOME directory is /users/steve and that you have
+subdirectories as shown in the following figure:
+
+    -- not shown --
+
+Assuming that you just logged in to the system and executed the following
+commands:
+
+    $ docs=/users/steve/documents
+    $ let=$docs/letters
+    $ prop=$docs/proposals
+
+--------------------------------------------------------------------------------
+
+
+
+
+Write the commands in terms of these variables to
+
+a.  List the contents of the documents directory
+
+    ls $docs
+
+
+b.  Copy all files from the letters directory to the proposals directory
+
+    cp $let/* prop
+
+
+c.  Move all files whose names contain a capital letter from the letters
+    directory to the current directory
+
+    mv $let/*[A-Z]*
+
+
+d.  Count the number of files in the memos directory
+
+    ls $docs/memos | wc -l
+
+--------------------------------------------------------------------------------
+
+
+
+
+What would be the effect of the following commands?
+
+a.  ls $let/..
+
+    Print the names of the files in the /users/steve/documents directory
+
+
+b.  cat $prop/sys.A >> $let/no.JSK
+
+    If the file /users/steve/documents/proposals exists then append its contents
+    to /users/steve/documents/proposals/no.JSK; if the file doesn't exist then
+    it appends nothing to no.JSK (i.e. a noop, except that this will create a
+    blank file if one doesn't already exist), and an error message is written to
+    stderr.
+
+
+c. echo $let/*
+
+    Print the names of the files in the /users/steve/documents/letters directory
+
+
+d. cp $let/no.JSK $progs
+
+   If /users/steve/documents/letters/no.JSK exists then copy is to
+   /users/steve/documents/proposals/.  Otherwise it is a noop and an error
+   message is written to stderr.
+
+
+e. cd $prop
+
+    Change directory to /users/steve/documents/proposals

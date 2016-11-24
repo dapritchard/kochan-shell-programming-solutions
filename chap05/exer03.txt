@@ -1,0 +1,24 @@
+
+Write the commands to count the number of characters stored in the shell
+variable text.  Then write the commands to count all the alphabetic characters
+(hint: use sed and wc).  What happens to special character sequences such as \n
+if they're stored inside text?
+
+text='A rose by any other name !@#$\n'
+
+
+# Note that echo adds a newline at the end of text so we get one extra character
+# than we might expect; this can be verified using od as below.  An alternative
+# to echo would be to use printf, but we have not covered this function yet.
+
+# Counts the number of characters $text, plus one for the added newline
+echo "$text" | wc -m
+
+# Remove everything not an alphabetic character with sed, and then count how
+# many are remaining, plus one for the added newline.  [:alpha:] is a character
+# class and in the C local and with ASCII character encoding, this is equivalent
+# to [A-Za-z]
+echo "$text" | sed 's/[^[:alpha:]]*//g' | wc -m
+
+# Verify that a newline is added
+echo 'asdf' | od -c
