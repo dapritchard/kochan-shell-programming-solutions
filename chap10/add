@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#
+# Verify that $PHONEBOOK is the name of a valid file
+#
+
+if [ ! -n "$PHB_STANDALONE" ]
+then
+    . ./set_phb_loc
+fi
+
+#
+# Add someone to the phone book
+#
+
+if [ ! -n "$1" ]
+then
+    echo 'must provide a non-null entry for name'
+    exit 0
+fi
+
+echo "$1	$2" >> "$PHONEBOOK"
+
+sort -u -o "$PHONEBOOK" "$PHONEBOOK"

@@ -1,0 +1,79 @@
+
+exer01: execute exer01.sh with the names of 1 or more files to remove.
+    exer01.sh has a safety feature that will not permit deletions when the list
+    of files to delete is larger than the value of the variable $MAXFILES.  
+
+        MAXFILES=5 ; export MAXFILES
+
+        # Successful removal
+        touch aa ab ac
+        ./exer01.sh a*
+
+        # Too many removals relative to $MAXFILES
+        touch aa ab ac ad ae af ag
+        ./exer01.sh a*
+
+        # Empty file list
+        ./exer01.sh
+
+        # Some files don't exist	
+        ./exer01.sh aa za zb <<< yes
+        ls a*
+
+        # All files don't exist
+        ./exer01.sh za zb
+
+	# $MAXFILES set to 0 is a special case as per the directions
+	MAXFILES=0 ; export MAXFILES
+	./exer01.sh ab ac
+
+	# Bad values for MAXFILES
+	MAXFILES=asdf    ; export MAXFILES ; ./exer01.sh ad ae
+	MAXFILES=-1      ; export MAXFILES ; ./exer01.sh ad ae
+	MAXFILES=1.25    ; export MAXFILES ; ./exer01.sh ad ae
+	MAXFILES="1 2 3" ; export MAXFILES ; ./exer01.sh ad ae
+
+	# Return to original state
+        rm a?
+        MAXFILES=
+	export MAXFILES
+
+
+exer02: see exer02.sh for an answer to this question, and test02.sh (and prog1
+    and prog2) to test the answer
+
+
+exer03: execute exer03.sh with or without the exported environmental variable
+    $PHONEBOOK specifying the location of the phone book file.  For example:
+
+        # Using default location of phonebook, add, look up, and 
+	# (unsuccessfully) remove
+	unset PHONEBOOK
+	printf 'y\n2\njohn\n256-3948\n1\njohn\n3\nsteve\n0\n' | ./exer03.sh
+	cat phonebook
+
+	# Using add, lu, and rem as stand-alone programs with default location
+	# of phonebook
+	./lu john
+	./add mark 772-1020
+	./rem john
+	cat phonebook
+
+	# Remove phone book file after testing
+	rm phonebook
+
+	# Using user-specified location of phonebook, add, look up, and
+	# (unsuccessfully) remove
+	PHONEBOOK=test_phb ; export PHONEBOOK
+	printf 'y\n2\njohn\n256-3948\n1\njohn\n3\nsteve\n0\n' | ./exer03.sh
+	cat test_phb
+
+	# Using add, lu, and rem as stand-alone programs with user-specified
+	# location of phonebook
+	./lu john
+	./add mark 772-1020
+	./rem john
+	cat test_phb
+
+	# Remove phone book file after testing
+	rm test_phb

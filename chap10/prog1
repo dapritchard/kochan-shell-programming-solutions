@@ -1,0 +1,7 @@
+#!/bin/bash
+
+e1=100
+export e1
+
+e2=200
+e3=300 ./prog2

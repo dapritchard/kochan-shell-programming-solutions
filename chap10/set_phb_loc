@@ -1,0 +1,27 @@
+
+#
+# If environmental variable $PHONEBOOK is not set then the default is phonebook
+#
+
+if [ ! -n "$PHONEBOOK" ]
+then
+    PHONEBOOK=phonebook
+    export PHONEBOOK
+fi
+
+#
+# Ensure that the file specified by $PHONEBOOK exists
+# 
+
+if [ ! -f "$PHONEBOOK" ]
+then
+    printf "no file $PHONEBOOK exists; create an empty file (y/n)? "
+    read choice
+
+    if [ "_$choice" = _y ]
+    then
+	touch "$PHONEBOOK"
+    else
+	exit 1
+    fi
+fi

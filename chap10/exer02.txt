@@ -1,0 +1,21 @@
+
+Here are two programs called prog1 and prog2:
+
+    $ cat prog1
+    e1=100
+    export e1
+    e2=200
+    e3=300 prog2
+
+    $ cat prog2
+    echo $e1 $e2 $e3 $e4
+
+What output would you expect after typing the following:
+
+    $ e2=20; export e2
+    $ e4=40 prog1
+
+--------------------------------------------------------------------------------
+
+
+100 200 300 40

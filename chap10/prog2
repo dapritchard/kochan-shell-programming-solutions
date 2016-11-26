@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo $e1 $e2 $e3 $e4

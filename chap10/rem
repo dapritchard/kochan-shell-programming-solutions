@@ -1,0 +1,72 @@
+#!/bin/bash
+
+#
+# Verify that $PHONEBOOK is the name of a valid file
+#
+
+if [ ! -n "$PHB_STANDALONE" ]
+then
+    . ./set_phb_loc
+fi
+
+#
+# Remove someone from the phone book
+#
+
+if [ "$#" -ne 1 ]
+then
+    echo "Incorrect number of arguments."
+    echo "Usage: rem name"
+    exit 1
+fi
+
+name=$1
+
+#
+# Find number of matching entries
+#
+
+match_names=$(grep "$name" "$PHONEBOOK")
+# Need conditional because echo "$match_names" | wc -l doesn't work properly for
+# the empty string
+if [ -n "$match_names" ]
+then
+    matches=$(echo "$match_names" | wc -l)
+else
+    matches=0
+fi
+
+#
+# If more than one match prompt user for conformation to remove, else remove it
+#
+
+if [ "$matches" -gt 1 ]
+then
+
+    echo "More than one match; please select the one to remove"
+
+    # Each iteration asks for confirmation to delete the entry from phone book
+    # corresponding to the entry found in the first line of $matches; then the
+    # first line of $matches is removed
+    while [ $matches -ge 1 ]
+    do
+	# Prompt user whether to delete entry
+	this_name=$(echo "$match_names" | head -1)
+	printf "$this_name	Remove (y/n)? "
+	read rem_choice
+	if [ "_$rem_choice" = _y ]
+	then
+	    ./rem "$this_name"
+	fi
+
+	# Remove first entry
+	matches=$((matches - 1))
+	match_names=$(echo "$match_names" | tail -$matches)
+    done
+elif [ "$matches" -eq 1 ]
+then
+    grep -v "$name" "$PHONEBOOK" > /tmp/phonebook$$
+    mv /tmp/phonebook$$ "$PHONEBOOK"
+else
+    echo "I couldn't find $name in the phone book"
+fi
