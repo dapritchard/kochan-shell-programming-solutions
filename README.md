@@ -42,4 +42,10 @@ file describing the files associated with the various exercises, and in some
 cases examples of how to use and/or test them.  For some problems, there are
 accompanying test files, and sometimes other files are also included to assist
 testing of the exercises; these additional files are also described in the
-README file.
+chapter's README file.
+
+----
+
+### Remains to complete ###
+
+Chapters 11-14

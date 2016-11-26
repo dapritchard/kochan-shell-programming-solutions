@@ -17,7 +17,7 @@ fi
 exitbool=FALSE
 
 #
-# Loop until a valid selection is made
+# Loop until user exits program
 #
 
 until [ "$exitbool" = TRUE ]
