@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# usage: leftmatch [-g] lpattern value
+#            -g specifies greedy matching
+
+is_greedy=FALSE
+while getopts g option
+do
+    case "$option" in
+	
+	g)  is_greedy=TRUE;;
+
+	\?) echo "usage: leftmatch [-g] lpattern value"
+	    exit 1;;
+    esac
+done
+
+# Check that exactly 2 arguments were provided.  $OPTIND points to 1 past the
+# index of the last option (starting from 1), so we need there to be 1 more args
+# after the current one
+if [ $(($# - OPTIND)) -ne 1 ]
+then
+    echo "usage: leftmatch [-g] lpattern value"
+    exit 1
+fi
+
+# If necessary, shift the arguments past any option flags
+shiftcount=$((OPTIND - 1))
+shift $shiftcount
+
+if [ $is_greedy = TRUE ]
+then
+    echo ${2##$1}
+else
+    echo ${2#$1}
+fi
+

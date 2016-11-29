@@ -1,0 +1,100 @@
+
+exer01: execute exer01.sh to run the commands given in the prompt and see what
+    their results are
+
+
+exer02: execute exer02.sh with the name of a user known to the system as an
+    argument to test.  For example:
+
+        ./exer02.sh dpritch    # 1 match
+	./exer02.sh asdf       # 0 matches
+	./exer02.sh sys        # 2+ matches
+
+
+exer03: execute exer03.sh with the data from a file redirected to its stdin, and
+    visually compare with that from wc.  For example:
+
+        ./exer03.sh < exer03.sh
+	wc < exer03.sh
+
+	./exer03.sh < /etc/passwd
+	wc < /etc/passwd
+
+
+exer04: execute exer04.sh with arguments value and pattern to test.  For
+    example:
+
+        ./exer04.sh test.c .c                     # test
+        ./exer04.sh /usr/spool/uucppublic '/*'    # /usr/spool
+        ./exer04.sh /usr/spool/uucppublic o       # /usr/spool/uucppublic
+        ./exer04.sh 'a and b' 'nd b'              # a a
+	./exer04.sh test.c test.c                 #
+	./exer04.sh "" .c                         #
+	./exer04.sh test.c ""                     # test.c
+
+
+exer05: execute exer05.sh with arguments pattern and value to test.  For
+    example:
+
+        ./exer05.sh /usr/spool/ /usr/spool/uucppublic    # uucppublic
+        ./exer05.sh s. s.main.c                          # main.c
+        ./exer05.sh 'a a' 'a and b'                      # nd b
+	./exer05.sh test.c test.c                        #
+	./exer05.sh s. ""                                # 
+	./exer05.sh "" s.main.c                          # s.main.c
+
+
+exer06: execute exer06.sh with arguments pattern and value to test.  For
+    example:
+
+        ./exer06.sh /usr/ /usr/spool/uucppublic /uucppublic    # spool
+        ./exer06.sh s. s.main.c .c                             # main
+        ./exer06.sh s. s.main.c .o                             # main.c
+	./exer06.sh substring x. s.main.c .o                   # s.main.c
+        ./exer06.sh ab abcd cd                                 #
+	./exer06.sh abc abcd bcd                               #
+
+
+exer07: execute exer07.sh with option -g and arguments lpattern value rpatter to
+    test.  The extended versions of rightmatch and leftmatch are named
+    rightmatch and leftmatch (as opposed to exer04.sh and exer05.sh).  Some
+    test-case usages of these programs are the following:
+
+        ./leftmatch    '*e' testcase.c    # stcase.c
+	./leftmatch -g '*e' testcase.c    # .c
+
+	# Invalid arguments
+	./leftmatch    '*e'
+	./leftmatch    '*e' testcase.c extra
+	./leftmatch -k '*e' testcase.c
+	./leftmatch -g '*e'
+	./leftmatch -g '*e' testcase.c extra
+
+        ./rightmatch    testcase.c 'e*'    # testcas
+	./rightmatch -g testcase.c 'e*'    # t
+
+	# Invalid arguments
+	./rightmatch    *'e'
+	./rightmatch    testcase.c 'e*' extra
+	./rightmatch -k testcase.c 'e*'
+	./rightmatch -g 'e*'
+	./rightmatch -g testcase.c 'e*' extra
+
+        ./exer07.sh    '*t' testcase.c .c      # estcase
+        ./exer07.sh -g '*t' testcase.c .c      # case
+	./exer07.sh    '*t' testcase.c 'e*'    # estcas
+	./exer07.sh -g '*t' testcase.c 'e*'    #
+
+        # Invalid arguments
+        ./exer07.sh    '*t' testcase.c
+        ./exer07.sh    '*t' testcase.c .c extra
+        ./exer07.sh -k '*t' testcase.c .c
+        ./exer07.sh -g '*t' testcase.c
+        ./exer07.sh -g '*t' testcase.c .c extra
+
+
+
+
+additional files: the files rightmatch and leftmatch are the extensions of the
+    versions created in exercise 4 and exercise 5 (the extensions were performed
+    for exercise 7).

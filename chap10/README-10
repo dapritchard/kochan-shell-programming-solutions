@@ -77,3 +77,13 @@ exer03: execute exer03.sh with or without the exported environmental variable
 
 	# Remove phone book file after testing
 	rm test_phb
+
+
+
+
+additional files: add, lu, and rem are the files which provide the individual
+    components of the phone book program.  set_phb_loc is a helper file which
+    sets the value of a variable specifying the location of the file containing
+    the phone book entries.
+
+    prog1 and prog2 are used to execute the example given in exercise 2.
