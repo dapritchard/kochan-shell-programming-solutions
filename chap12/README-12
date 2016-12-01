@@ -1,0 +1,55 @@
+
+exer01: execute exer01.sh with a variable number of arguments and then visually
+    inspect the output to test.  For example:
+
+        ./exer01.sh 1 2 3 4 5 6 7 8 9 10 11
+	./exer01.sh "  a  " "  abc    xyd  " "99"  
+	./exer01.sh
+
+
+exer02: execute exer02.sh with the names of one or more files and then visually
+    inspect the output to test.  A small subdirectory hierarchy is included in
+    this directory for this purpose.  For example:
+
+        mkdir scratchdir
+	mkdir scratchdir2
+
+        ls -R testdir          # show directory hierarchy
+	cat testdir/x1         # for example
+        cat testdir/adir/a2    # for example
+                               # the remaining files look similar
+
+        # Archive a single file in the current directory
+        ./exer02.sh exer02.sh > scratchdir/exer02.shar
+        ( cd scratchdir; sh exer02.shar )
+	diff exer02.sh scratchdir/exer02.sh
+
+        # Archive a single file in a subdirectory
+        ./exer02.sh testdir/x1 > scratchdir/x1.shar
+        ( cd scratchdir; sh x1.shar )
+	diff testdir/x1 scratchdir/testdir/x1
+
+        # Archive multiple files in nested subdirectories.  Note that 
+        # testdir/bdir is itself a directory
+	./exer02.sh testdir/adir/a1 testdir/adir/wdir/w2 testdir/bdir \
+                    > scratchdir/multifile.shar
+        ( cd scratchdir; sh multifile.shar )
+	ls -R scratchdir/testdir
+
+        # Archive a directory
+        ./exer02.sh testdir > scratchdir2/testdir.shar
+        ( cd scratchdir2; sh testdir.shar )
+        ls -R scratchdir2/testdir
+
+        # Clean up
+	rm -r scratchdir scratchdir2
+
+
+exer03: test exer03.sh by using any of the test scripts from exercise 2 (of course
+    substituting exer03.sh in place of exer02.sh)
+
+
+
+
+additional files: a directory testdir with some subdirectories and files for use
+    with testing exercise 2 and exercise 3.
