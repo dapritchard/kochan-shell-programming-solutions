@@ -1,0 +1,174 @@
+#!/bin/bash
+
+#
+# rolo - rolodex program to look up, add,
+#        remove and change entries from the phone book
+#
+# usage: rolo [-m name] [-f file] [-s card]
+#        rolo pattern...
+#
+# In the first case the -f and -s options can be used only when the -m option is
+# also invoked.  Furthermore, the -f and -s options may not both be invoked.
+#
+# name specifies a pattern to match against the rolodex card of the reciepient
+# of the email.  file specifies the location of a file containing the body of an
+# email to send.  card specifies a pattern to match against the rolodex card
+# which is to be sent as the body of an email.
+#
+
+mailopt=FALSE
+rolo_entry=
+msg_card=
+msg_loc=
+
+while getopts f:m:s: option
+do
+    case "$option" in
+
+	f) msg_loc="$OPTARG" ;;
+
+	m) mailopt=TRUE 
+	   rolo_entry="$OPTARG" ;;
+
+	# IMPORTANT: this is defined differently than as specified in exercise
+	# 7.  As written here the option -s card specifies which rolodex card to
+	# send to a user.
+	s) msg_card="$OPTARG" ;;
+
+	?) echo 'error: required argument missing' >&2 
+	   exit 1;;
+
+	*) echo 'usage: rolo [-m name] [-f file] [-s card]' >&2
+	   exit 1 ;;
+    esac
+done
+
+#
+# Set PHONEBOOK to point to the phone book file
+# and export it so other progs know about it
+# if it's set on entry, then leave it alone
+#
+
+: ${PHONEBOOK:="$HOME/phonebook"}
+export PHONEBOOK
+if [ ! -e "$PHONEBOOK" ]
+then
+    echo "$PHONEBOOK does not exist!"
+    printf "Should I create it for you (y/n)? "
+    read answer
+
+    if [ "$answer" != y ]
+    then
+	exit 1
+    fi
+
+    > $PHONEBOOK || exit 1    # exit if the creation fails
+fi
+
+#
+# If -m option is specified then send an email
+#
+
+if [ "$mailopt" = TRUE ]
+then
+    # Can't specify both a file for the email content and a rolodex card
+    if [ -n "$msg_loc" -a -n "$msg_card" ]
+    then
+	echo "error: cannot specify both the -f and -s options" >&2
+	exit 1
+    fi
+
+    exec ./mailto "$rolo_entry" "$msg_loc" "$msg_card"
+fi
+
+#
+# If arguments are supplied, then do a lookup
+#
+
+shiftcount=$((OPTIND - 1))
+shift $shiftcount
+
+if [ $# -ne 0 ]
+then
+    exec ./lu "$@"
+fi
+
+#
+# Set trap on interrupt (DELETE key) to continue the loop
+#
+
+trap "continue" 2
+
+#
+# Loop until user selects 'exit'
+#
+
+while true
+do
+
+    #
+    # Display menu
+    #
+
+    printf '
+
+Would you like to:
+1. Look someone up
+2. Add someone to the phone book
+3. Remove someone from the phone book
+4. Change an entry in the phone book
+5. List all names and numbers in the phone book
+6. Send an email to someone from the phone book
+7. Exit this program
+Please select one of the above (1-7): '
+
+    #
+    # Read and process selection
+    #
+
+    read choice
+    echo
+    case "$choice" in
+
+	1) printf "Enter name to look up: "
+	   read name
+	   if [ -z "$name" ]
+	   then
+	       echo "Lookup ignored"
+	   else
+	       ./lu "$name"
+	   fi;;
+
+	2) ./add;;
+
+	3) printf "Enter name to remove: "
+	   read name
+	   if [ -z "$name" ]
+	   then
+	       echo "Removal ignored"
+	   else
+	       ./rem "$name"
+	   fi;;
+
+	4) printf "Enter name to change: "
+	   read name
+
+	   if [ -z "$name" ]
+	   then
+	       echo "Change ignored"
+	   else
+	       ./change "$name"
+	   fi;;
+
+	5) ./listall;;
+
+	6) printf "Enter name to email: "
+	   read name
+	   ./mailto "$name";;
+
+	7) exit 0;;
+
+	*) echo "Bad choice";;
+
+    esac
+done

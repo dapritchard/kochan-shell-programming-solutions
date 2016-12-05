@@ -1,0 +1,113 @@
+#!/bin/bash
+
+#
+# rolo - rolodex program to look up, add,
+#        remove and change entries from the phone book
+#
+
+#
+# Set PHONEBOOK to point to the phone book file
+# and export it so other progs know about it
+# if it's set on entry, then leave it alone
+#
+
+: ${PHONEBOOK:="$HOME/phonebook"}
+export PHONEBOOK
+if [ ! -e "$PHONEBOOK" ]
+then
+    echo "$PHONEBOOK does not exist!"
+    printf "Should I create it for you (y/n)? "
+    read answer
+
+    if [ "$answer" != y ]
+    then
+	exit 1
+    fi
+
+    > $PHONEBOOK || exit 1    # exit if the creation fails
+fi
+
+#
+# If arguments are supplied, then do a lookup
+#
+
+if [ "$#" -ne 0 ]
+then
+    ./lu "$@"
+    exit
+fi
+
+#
+# Set trap on interrupt (DELETE key) to continue the loop
+#
+
+trap "continue" 2
+
+#
+# Loop until user selects 'exit'
+#
+
+while true
+do
+
+    #
+    # Display menu
+    #
+
+    printf '
+
+Would you like to:
+1. Look someone up
+2. Add someone to the phone book
+3. Remove someone from the phone book
+4. Change an entry in the phone book
+5. List all names and numbers in the phone book
+6. Exit this program
+Please select one of the above (1-6): '
+
+    #
+    # Read and process selection
+    #
+
+    read choice
+    echo
+    case "$choice" in
+
+	1) printf "Enter name to look up: "
+	   read name
+	   if [ -z "$name" ]
+	   then
+	       echo "Lookup ignored"
+	   else
+	       ./lu "$name"
+	   fi;;
+
+	2) ./add;;
+
+	3) printf "Enter name to remove: "
+	   read name
+	   if [ -z "$name" ]
+	   then
+	       echo "Removal ignored"
+	   else
+	       ./rem "$name"
+	   fi;;
+
+	4) printf "Enter name to change: "
+	   read name
+
+	   if [ -z "$name" ]
+	   then
+	       echo "Change ignored"
+	   else
+	       ./change "$name"
+	   fi;;
+
+	5) ./listall;;
+
+	6) exit 0;;
+
+	*) echo "Bad choice";;
+
+    esac
+done

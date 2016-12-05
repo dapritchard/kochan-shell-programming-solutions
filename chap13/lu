@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#
+# Look someone up in the phone book
+#
+
+for name
+do
+
+    grep -i "$name" $PHONEBOOK > /tmp/matches$$
+
+    if [ ! -s /tmp/matches$$ ]
+    then
+	echo "I can't find $name in the phone book"
+    else
+
+	#
+	# Display each of the matching entries
+	#
+
+	while read line
+	do
+	    ./display "$line"
+	done < /tmp/matches$$
+    fi
+done
+
+rm /tmp/matches$$

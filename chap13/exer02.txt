@@ -1,0 +1,22 @@
+
+Add a -m command-line option to rolo to send mail to the person who follows on
+the command line. Have rolo look up the person in the phone book and then look
+for the string mail:mailaddr in the matching entry, where mailaddr is the
+person's mail address. Then start up an editor (as in change mode) to allow the
+user to enter the mail message. When the editing is complete, mail the message
+to the user. If no mail address is found in the phone book, prompt for it.
+
+Also add a mail option to the menu so that it can be selected
+interactively. Prompt for the name of the person to send mail to.
+
+--------------------------------------------------------------------------------
+
+
+The file mailto contains the workhorse program for this functionality.  There
+were some small changes that were added to the rolo file in order to handle the
+command-line options and the extra within-program rolo option.  See
+
+    diff rolo_orig/rolo rolo
+
+for these changes.  Note that the changes for exercises 3 and 7 are also
+reflected in both mailto and rolo.

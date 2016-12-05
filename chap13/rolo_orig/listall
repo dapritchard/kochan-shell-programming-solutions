@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#
+# list all of the entries in the phone book
+#
+
+IFS='^'
+
+# to be used in set command below
+echo "-----------------------------------------------------"
+while read line
+do
+    #
+    # Get the first and last fields, presumably names and numbers
+    #
+
+    set $line
+
+    #
+    # display 1st and last fields (in reverse order!)
+    #
+
+    eval printf "\"%-40.40s %s\\n\"" "\"$1\"" "\"\${$#}\""
+done < $PHONEBOOK
+echo "-----------------------------------------------------"

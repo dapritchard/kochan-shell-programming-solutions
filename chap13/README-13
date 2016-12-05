@@ -1,0 +1,147 @@
+
+exer01: see exer01.txt for discussion.  Test exercise 1 by executing rolo and
+    with a case-insensitive match argument.  For example:
+
+        $ export PHONEBOOK=phb
+        $ ./rolo MARK
+
+
+exer02: see exer02.txt for some discussion of the changes to the rolo suite of
+    files.  Test exercise 2 by executing rolo and choosing option with the -m
+    name option.  For example:
+
+        $ export PHONEBOOK=phb
+	$ export EDITOR=emacs
+
+        $ # Mail from inside rolo with "mailto:" field
+        $ ./rolo
+        6
+        ste
+        y
+        n
+        y
+        # enter text in emacs
+        7
+
+        $ # Mail from inside rolo not using existing "mailto:" field
+        $ ./rolo
+        6
+        ste
+        y
+        n
+        n
+        unlisted@company.com
+        # enter text in emacs
+        7
+
+        $ # Mail from inside rolo with no "mailto:" field
+        $ ./rolo
+        6
+        mark
+        y
+        mark@test.edu
+        # enter text in emacs
+        7
+
+        $ # Mail using -m name option
+	$ ./rolo -m ste
+        y
+        y
+        # enter text in emacs
+
+
+exer03: see exer03.txt for some discussion of the changes to the rolo suite of
+    files.  Test exercise 3 by executing rolo and specifying the -m name -f
+    email_msg options.  For example:
+
+        $ export PHONEBOOK=phb
+
+        $ ./rolo -m ste -f email_msg
+        y
+        y
+
+        $ ./rolo -m asdf -f email_msg    # bad name
+        $ ./rolo -m ste -f asdf          # bad email
+        y
+        y
+
+
+exer04: see exer04.txt for discussion
+
+
+exer05: for this exercise, the file rolo_exer05 forks from the file rolo.  Note
+    that both rolo and rolo_exer05 include the additional functionality provided
+    by exercise 7; the difference in the two comes from the convention is
+    specifying the location of the phone book file.
+
+    See exer05.txt for some discussion of the changes to the rolo suite of
+    files.  Test exercise 5 by executing rolo_exer05 and possibly specifying the
+    -u location option.  For example:
+
+        $ echo "$PWD/phb_exer05" > "$HOME/.rolo"
+        $ echo "$PWD/phb_exer05_alt" > "$HOME/.rolo_alt"
+
+        $ cat phb_exer05
+        $ cat phb_exer05_alt
+
+        $ ./rolo_exer05
+        5
+        7
+
+        $ ./rolo_exer05 -u "$HOME/.rolo_alt"
+        5
+        7
+
+        $ ./rolo_exer05 -u "$HOME/.rolo_alt" vlad
+
+        $ rm "$HOME/.rolo" "$HOME/.rolo_alt"
+
+
+exer06: see exer06.txt for discussion
+
+
+exer07: IMPORTANT: note that I took the liberty of following a slightly
+    different command-line interface for this assignment than the one given in
+    the prompt.  Please see exer07.txt for more explanation.
+
+    Also see exer07.txt for some discussion of the changes to the rolo suite of
+    files.  Test exercise 7 by executing rolo and specifying the -m name -s card
+    options.  For example:
+
+        $ export PHONEBOOK=phb
+
+        $ ./rolo -m ste -s mark
+        y
+        y
+        y
+
+        $ ./rolo -m fra -s jo
+        y
+        frankthetank@nakedrunner.com
+        n
+        y
+
+        $ # Can only use one of -f or -s options
+        $ ./rolo -m ste -f email_msg -s mark
+
+
+
+
+additional files: 
+
+    * the following files are part of the rolo suite of files: 
+
+        * add
+        * change
+        * display
+        * listall
+        * lu
+        * mailto
+        * rem
+        * rolo (or rolo_exer05)
+
+    * the directory rolo_orig contains the rolo suite of files as presented in
+      the textbook
+
+    * email_msg, phb, phb_exer05, phb_exer05_alt are files that are used in the
+      testing of the exercises.

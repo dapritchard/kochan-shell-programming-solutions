@@ -1,0 +1,29 @@
+
+Modify rolo to use the following convention instead of the exported PHONEBOOK
+variable: the file .rolo in each rolo user's home directory contains the
+pathname to that user's phone book file, for example:
+
+    $ cat $HOME/.rolo
+    /users/steve/misc/phonebook
+
+Then add an option to rolo to allow you to look up someone in another user's
+phone book (provided that you have read access to it). This option should be
+added to the command line (as a -u option) as well as to the menu. For example,
+
+    $ rolo -u pat Pizza
+
+would look up Pizza in pat's phone book, no matter who is running rolo. The
+program can find pat's phone book by looking at .rolo in pat's home directory.
+
+--------------------------------------------------------------------------------
+
+
+For this exercise, the file rolo_exer05 forks from the file rolo: note that both
+rolo and rolo_exer05 include the additional functionality provided by exercise
+7.  So the difference in the two comes solely from the convention used in
+specifying the location of the phone book file.  See
+
+    diff rolo rolo_exer05
+
+for the differences in the files between the two ways of specifying the location
+of the phone book file.

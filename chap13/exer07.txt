@@ -1,0 +1,26 @@
+
+Add a –s (send) option to rolo to mail a rolodex entry to a specified user. So
+
+    $ rolo –s tom pizza
+
+should send the rolodex card entry for pizza to the user tom.
+
+--------------------------------------------------------------------------------
+
+
+IMPORTANT: note that I took the liberty of following a slightly different
+command-line interface for this assignment than the one given in the prompt.
+The interface that I provided was that when using the -m name option then the
+user may also provide a -s card option to provide a pattern with which to
+specify a rolodex card to use as the email body, which is a different then the
+format specified in the prompt.  To me this made more sense because we already
+have an option (the -m option) that specifies a user to send a message to.
+
+The file mailto contains the workhorse program for this functionality.  There
+were some small changes that were added to the rolo file in order to handle the
+command-line options and the extra within-program rolo option.  See
+
+    diff rolo_orig/rolo rolo
+
+for these changes.  Note that the changes for exercises 2 and 3 are also
+reflected in both mailto and rolo.

@@ -1,0 +1,204 @@
+#!/bin/bash
+
+#
+# Send an email to someone from the phone book
+#
+
+
+
+
+# Define functions -------------------------------------------------------------
+
+# Find cards in phone book that match the pattern given by $1, and one-by-one
+# query user whether they were the intended card until a "y" (yes) response is
+# given for one (program quites if none are chosen).  $2 specifies what message
+# to prompt user with.
+#
+# The chosen rolodex card is stored in $line
+
+recipient_card () {
+
+    pattern="$1"
+    confirm_msg="$2"
+
+    #
+    # Get matching entries and save in temp file
+    #
+
+    grep "$pattern" $PHONEBOOK > /tmp/matches$$
+    if [ ! -s /tmp/matches$$ ]
+    then
+    	echo "I can't find $pattern in the phone book"
+    	exit 1
+    fi
+
+    #
+    # Display matching entries one at a time and confirm whether to mail to
+    #
+
+    while read line
+    do
+    	./display "$line"
+    	printf "$confirm_msg"
+    	read answer < /dev/tty
+
+    	if [ "$answer" = y ]
+    	then
+    	    break
+    	fi
+    done < /tmp/matches$$
+
+    rm /tmp/matches$$
+
+    if [ "$answer" != y ]
+    then
+    	exit 0
+    fi
+}
+
+
+
+
+# Search the rolodex entry provided by $line for a fields starting with
+# "mailto:".  If any are found, the user is queried one-by-one whether that is
+# the email that they wish to send to, until an email is chosen.  If none is
+# chosen or none are available, then the user is prompted to enter an email
+# address.
+#
+# The chosen email address is stored in $mailto_addr
+
+recipient_email () {
+
+    # addr_list: a possibly empty string with each line a valid email address taken
+    # from a line in the rolodex entry starting with "mailto:"
+    rolo_entry="$(echo "$line" | tr '^' '\n')" 
+    mailto_list="$(grep '^mailto:..*@..*$' <<< "$rolo_entry")" 
+    addr_list="$(sed 's/mailto:\(..*@..*$\)/\1/' <<< "$mailto_list")"
+
+    # case: there is a "mailto:" field in rolodex entry
+    use_email=no
+    if [ -n "$addr_list" ]
+    then
+	# Choose which email entry to use
+	while read mailto_addr
+	do
+	    printf "Mail to %s? " "$mailto_addr"
+	    read use_email < /dev/tty
+
+	    if [ "$use_email" = y ]
+	    then
+		break
+	    fi
+	done <<< "$addr_list"
+    fi
+
+    #
+    # Ask for email address if none provided
+    #
+
+    if [ "$use_email" != y ]
+    then
+	# Leave error checking of email address to mail command
+	printf "Enter email address to mail to: "
+	read mailto_addr < /dev/tty
+    fi
+}
+
+
+
+
+# Determine if the email message is provided either as (i) a file, or else (ii)
+# we have been instructed to send a rolodex card, or else (iii) call the editor
+# to create a new message.
+#
+# The message is stored on disk at /tmp/email_content$$.
+
+email_content () {
+
+    # $msg_loc: a global variable possibly specifying the location on disk of
+    # some email message content.  If null then this signifies that no such file
+    # exists.
+
+    # $send_card: a variable containing a pattern by which to identify a rolodex
+    # card which is then to be sent to the recipient as the body of the email.
+
+    if [ -n "$msg_loc" ]
+    then
+	if [ ! -f "$msg_loc" ]
+	then
+	    echo "error: file $msg_loc does not exist" >&2
+	    exit 1
+	fi
+    elif [ -n "$send_card" ]
+    then
+	recipient_card "$send_card" "Send this card to recipient? "
+	./display "$line" > /tmp/email_content$$
+	msg_loc=/tmp/email_content$$
+    else
+	echo
+	echo "Enter changes with ${EDITOR:=/bin/ed}"
+	trap "" 2  # don't abort if DELETE hit while editing
+	$EDITOR /tmp/email_content$$
+	touch /tmp/email_content$$  # ensure that file exists
+	msg_loc=/tmp/email_content$$
+    fi
+}
+
+
+
+
+# Pretend email program since the book's use of the command "mail" does not
+# exist on my system
+faux_mail () {
+    echo
+    echo "faux mail sent to address:  $1"
+    echo ------------------------------------------------------------
+    cat $2
+    echo ------------------------------------------------------------
+}
+
+
+
+
+# Begin send mail script -------------------------------------------------------
+
+name="$1"
+msg_loc="$2"
+send_card="$3"
+
+#
+# Search for roledex card of recipient.  $line is set by recipient_card to the chosen
+# entry.
+#
+
+recipient_card "$name" "Mail to this entry (y/n)? "
+
+#
+# Search for email address in rolodex card specified by $line.  $mailto_addr is
+# set by recipient_email to the chosen email entry.
+#
+
+recipient_email
+
+#
+# Determine the content of the email to be sent based on the values of the
+# variables $msg_loc and $send_card
+#
+
+email_content
+
+#
+# Mail email to specified address
+#
+
+faux_mail "$mailto_addr" "$msg_loc"
+
+#
+# Remove temporary file containing email content.  TODO: Have to check for
+# existence???
+#
+
+if [ -f /tmp/email_content$$ ]
+then
+    rm /tmp/email_content$$
+fi

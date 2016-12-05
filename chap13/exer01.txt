@@ -1,0 +1,14 @@
+
+Modify rolo so that upper- and lowercase letters are not distinguished when
+doing a lookup in the phone book.
+
+--------------------------------------------------------------------------------
+
+
+The file lu was modified as follows:
+
+$ diff rolo_orig/lu lu
+8c8
+< grep "$name" $PHONEBOOK > /tmp/matches$$
+---
+> grep -i "$name" $PHONEBOOK > /tmp/matches$$

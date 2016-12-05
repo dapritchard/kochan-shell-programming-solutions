@@ -1,0 +1,61 @@
+#!/bin/bash
+
+#
+# Change an entry in the phone book
+#
+
+name=$1
+
+#
+# Get matching entries and save in temp file
+#
+
+grep "$name" $PHONEBOOK > /tmp/matches$$
+if [ ! -s /tmp/matches$$ ]
+then
+    echo "I can't find $name in the phone book"
+    exit 1
+fi
+
+#
+# Display matching entries one at a time and confirm change
+#
+
+while read line
+do
+    ./display "$line"
+    printf "Change this entry (y/n)? "
+    read answer < /dev/tty
+
+    if [ "$answer" = y ]
+    then
+	break
+    fi
+done < /tmp/matches$$
+
+rm /tmp/matches$$
+
+if [ "$answer" != y ]
+then
+    exit
+fi
+
+#
+# Start up editor on the confirmed entry
+#
+
+printf "$line" | tr '^' '\012' > /tmp/ed$$
+echo "Enter changes with ${EDITOR:=/bin/ed}"
+trap "" 2  # don't abort if DELETE hit while editing
+$EDITOR /tmp/ed$$
+
+#
+# Remove old entry now and insert new one
+#
+
+grep -v "^$line$" $PHONEBOOK > /tmp/phonebook$$
+{ tr '\012' '^' < /tmp/ed$$; echo; } >> /tmp/phonebook$$
+# last echo was to put back trailing newline translated by tr
+
+sort /tmp/phonebook$$ -o $PHONEBOOK
+rm /tmp/ed$$ /tmp/phonebook$$

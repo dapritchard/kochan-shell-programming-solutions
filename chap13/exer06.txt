@@ -1,0 +1,10 @@
+
+What happens with rolo if the user adds an entry containing a ^ or [ character?
+
+--------------------------------------------------------------------------------
+
+
+A caret character is translated to a newline.  A [ character (or any other
+character with special meaning to grep) causes problems in the rem program
+because this is a special character in a grep search, which is an operation that
+the program performs in order to remove the desired rolodex entry.

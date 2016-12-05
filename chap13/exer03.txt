@@ -1,0 +1,19 @@
+
+After adding the -m option, add a -f option to specify that the mail message is
+to be taken from the file that follows on the command line. So
+
+    rolo -m tony -f memo
+
+should look up tony and mail him the contents of the file memo.
+
+--------------------------------------------------------------------------------
+
+
+The file mailto contains the workhorse program for this functionality.  There
+were some small changes that were added to the rolo file in order to handle the
+command-line options and the extra within-program rolo option.  See
+
+    diff rolo_orig/rolo rolo
+
+for these changes.  Note that the changes for exercises 2 and 7 are also
+reflected in both mailto and rolo.

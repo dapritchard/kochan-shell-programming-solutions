@@ -1,0 +1,9 @@
+
+Can you think of other ways to use rolo? For example, can it be used as a small
+general purpose database program (for example, for storing recipes or employee
+data)?
+
+--------------------------------------------------------------------------------
+
+
+Um yes, sure, I don't see why not
