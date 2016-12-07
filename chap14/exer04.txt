@@ -1,0 +1,19 @@
+
+Modify the cdh function to set the prompt (PS1) to show the current directory;
+for example:
+
+    /users/pat: cdh /tmp
+    /tmp: cdh
+    /users/pat:
+
+--------------------------------------------------------------------------------
+
+
+As described on pages 280-281, the PS1 variable controls the appearance of the
+prompt.  The Bash documentation for the available options can be found at:
+
+    https://www.gnu.org/software/bash/manual/html_node/Controlling-the-Prompt.html
+
+So to achieve the desired result, one can use:
+
+    PS1='\w: '

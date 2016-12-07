@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "I am test file x2"
+echo

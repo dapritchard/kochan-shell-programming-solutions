@@ -1,0 +1,108 @@
+
+exer01: execute exer01.sh with the names of files provided as arguments.  Note
+    that this version of the program does not print dot files; since this is the
+    default behavior of ls this seems like a reasonable first version.  To test,
+    execute for example:
+
+        ./exer01.sh
+        ./exer01.sh exer01.sh README-14
+
+        ls -R testdir
+        ./exer01.sh testdir
+	./exer01.sh testdir/x1 testdir/bdir testdir/adir
+
+
+exer02: execute exer02.sh with octal numbers as arguments to test.  For example:
+
+        ./exer02.sh
+        ./exer02.sh 0 1 2 3 4 5 6 7 10 11 12 13 14 15 16 17 20 100 1000
+
+        # Doesn't work
+	./exer02.sh 18
+        ./exer02.sh ""
+        ./exer02.sh "1 2"
+        ./exer02.sh 1a
+
+
+exer03: execute exer03.sh in the current environment to load the cdh function
+    into memory and then navigate around the directory tree; also use the -l
+    option to see the history of visited directories and the -n option to move
+    to the n-th visited directory.  For example:
+
+        . ./exer03.sh
+        cdh -l
+
+	cdh testdir
+        cdh 'dir with spaces'
+        cdh 'dirstar*'
+        cdh -l
+
+        cdh ..
+        cdh ..
+        cdh ..
+        cdh -l
+
+        cdh -2
+        cdh -1
+        cdh -0
+
+        # bad input
+	cdh asdf
+	cdh -22
+
+        # clean up
+        unset CDHIST cdh
+
+
+exer04: see exer04.txt for an answer to this question
+
+
+exer05: execute exer05.sh in the current environment to load the cdh function
+    into memory and then navigate around the directory tree; then use the
+    -pattern option to jump between directories.  For example:
+
+        . ./exer05.sh
+	cdh 'testdir'
+        cdh 'dir with spaces'
+        cdh 'dirstar*'
+	cdh -l
+
+        # Note that we have to anchor some directories with a $ to get a unique
+        # match
+        cdh -spaces\$
+        cdh -14\$
+        cdh -star
+        cdh -l
+
+	# Number argument and - shortcut should still work
+	cdh -0
+	cdh -3
+	cdh -
+
+	# Too few or many too pattern matches
+	cdh -asdf
+	cdh -spaces
+
+        # Clean up
+        unset CDHIST cdh
+
+
+exer06: execute exer06.sh in the current environment to load the cdh function
+    into memory and then navigate around the directory tree; then use the old
+    new option to change directories.  For example:
+
+        . ./exer06.sh
+	cdh 'testdir'
+        cdh adir
+        cdh ad bd
+	cdh 14 12
+	cdh -0
+
+        # Clean up
+        unset CDHIST cdh
+
+
+
+
+additional files: a directory testdir with some subdirectories and files for use
+    with testing exercises 3, 5, and 6.
